@@ -29,7 +29,7 @@
 
 
 #define TIMER_0_TOP 2734 // TOP=t/(PRESCALE*(1/14MHZ))
-#define TIMER_1_TOP 5000
+#define TIMER_1_TOP 1000
 
 void init_clock(){
 

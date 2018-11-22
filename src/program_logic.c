@@ -110,12 +110,15 @@ void set_all_aring(){
 }
 void blink_aring(){
 	aring_blink=false;
-	clear_aring();
-	while(!aring_blink);
-	set_all_aring();
-	aring_blink=false;
-	while(!aring_blink);
-	clear_aring();
+	for(int i = 0;i<3;i++){
+		set_all_aring();
+		while(!aring_blink);
+		aring_blink=false;
+		clear_aring();
+		while(!aring_blink);
+		aring_blink=false;
+	}
+
 
 
 
@@ -156,7 +159,7 @@ void update_position(){
 	}
 	//printf("x:%d y:%d\n",coord_x,coord_y);
 	if(double_btn_pressed){
-		printf("double click\n");
+		//printf("double click\n");
 		position_t current_pos =calculate_current_coordinate(coord_x,coord_y);
 
 		aring_circle();
@@ -210,7 +213,7 @@ void add_to_hit_block(block_t block){
 	}
 }
 void shot(position_t position){
-	printf("shot current_pos%d %d",position.index,position.values);
+	printf("shot current_pos%d %d\n",position.index,position.values);
 	position_t current_pos;
 	for(int ship_number=0;ship_number <4;ship_number++){
 		 for(int block_number=0;block_number<2;block_number++){
@@ -228,7 +231,7 @@ void shot(position_t position){
 			 	}
 		 }
 	}
-	printf("not hit!!");
+	printf("not hit!!\n");
 }
 
 

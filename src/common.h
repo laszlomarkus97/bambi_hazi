@@ -32,6 +32,7 @@ volatile bool  update_slider;
 volatile bool button_1_rising_edge;
 volatile bool button_2_rising_edge;
 
+volatile int elapsed_time;
 
 // timing
 volatile bool light_blinking_led;

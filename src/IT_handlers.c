@@ -22,7 +22,7 @@ int slider_position=-1;
 void TIMER0_IRQHandler(void) {
 	//printf("Timer0 IT called\n");
 	TIMER_IntClear(TIMER0, TIMER_IF_OF);      // Clear overflow flag
-	TIMER_CounterSet(TIMER0,0);
+
 
 	if(button_1_rising_edge&&button_2_rising_edge){
 		printf("double press\n");
@@ -39,6 +39,7 @@ void TIMER0_IRQHandler(void) {
 	else{
 		//printf("Undefined\n");
 	}
+	TIMER_CounterSet(TIMER0,0);
 	 button_1_rising_edge=false;
 	 button_2_rising_edge=false;
 }
@@ -69,8 +70,13 @@ void gpio_callback(uint8_t pin){
 		/*
 		 * BUTTON1 rising edge
 		 */
-		TIMER_CounterSet(TIMER0,0);
-		TIMER_Enable(TIMER0,true);
+		elapsed_time=TIMER_CounterGet(TIMER0);
+		if(!button_1_rising_edge){
+			TIMER_CounterSet(TIMER0,0);
+			TIMER_Enable(TIMER0,true);
+		}
+
+
 
 		button_1_rising_edge=true;
 		break;
@@ -79,9 +85,13 @@ void gpio_callback(uint8_t pin){
 		/*
 		 * BUTTON2 rising edge
 		 */
+		elapsed_time=TIMER_CounterGet(TIMER0);
+		if(!button_2_rising_edge){
+			TIMER_CounterSet(TIMER0,0);
+			TIMER_Enable(TIMER0,true);
+		}
 
-		TIMER_CounterSet(TIMER0,0);
-		TIMER_Enable(TIMER0,true);
+
 		button_2_rising_edge=true;
 
 		break;
